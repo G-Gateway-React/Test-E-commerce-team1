@@ -1,3 +1,4 @@
+
 import Cards from "../components/Cards/Index";
 import Catalog from "../components/Catalog/Catalog";
 import Hero from "../components/HeroSection/Hero";
@@ -9,6 +10,8 @@ function Home() {
       {/* <Hero />
       <Cards />  */}
       <Catalog />
+      {/* <Nav /> */}
+      <Hero />
     </>
   );
 }

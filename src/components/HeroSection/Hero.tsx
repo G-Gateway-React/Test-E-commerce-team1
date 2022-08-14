@@ -60,7 +60,7 @@ function Hero() {
         flexDirection: "column",
       }}
     >
-      <Nav />
+      <Nav NoOfItems={2}/>
       <Box
         sx={{
           height: "100%",

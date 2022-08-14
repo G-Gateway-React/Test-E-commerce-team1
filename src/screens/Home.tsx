@@ -9,7 +9,7 @@ function Home() {
   
       {/* <Hero />
       <Cards />  */}
-      <Catalog />
+      {/* <Catalog /> */}
       {/* <Nav /> */}
       <Hero />
     </>

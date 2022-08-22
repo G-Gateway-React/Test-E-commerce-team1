@@ -3,14 +3,16 @@ import './App.css';
 // import { Login } from './screens/Login';
 import Home from './screens/Home';
 import { Login } from './screens/Login';
+import { Product } from './screens/Product';
 import { SignUp } from './screens/SignUp';
 
 
 function App() {
   return (
-    <Home/>
+    // <Home/>
     // <SignUp/>
     // <Login/>
+    <Product/>
   );
 }
 

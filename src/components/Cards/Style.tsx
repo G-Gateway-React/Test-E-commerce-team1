@@ -24,7 +24,11 @@ export const TitleStyle = styled.h1`
 `;
 
 export const TitleMaskStyle = styled.h3`
+  text-align: center;
+  color: #000f08;
+  font-family: "Inter", sans-serif;
   margin-top: 100px;
+  font-weight: 500;
   @media screen and (max-width: 600px) {
     font-size: 12px;
   }

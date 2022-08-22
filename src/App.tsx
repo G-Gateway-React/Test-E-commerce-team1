@@ -1,10 +1,9 @@
-import './App.css';
-// import Home from './screens/Home';
-// import { Login } from './screens/Login';
+import "./App.css";
+import Bag from "./components/Bag/Bag";
 import Home from './screens/Home';
 import { Login } from './screens/Login';
-import { Product } from './screens/Product';
 import { SignUp } from './screens/SignUp';
+import { Product } from './screens/Product';
 
 
 function App() {
@@ -12,6 +11,7 @@ function App() {
     // <Home/>
     // <SignUp/>
     // <Login/>
+    // <Bag />
     <Product/>
   );
 }

@@ -1,5 +1,6 @@
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import { ButtonProps } from "@mui/material/Button";
 
 export const StyledButton = styled(Button)`
   min-width: 50%;
@@ -16,7 +17,7 @@ export const StyledButton = styled(Button)`
   border: 1px solid #fff;
   border-radius: 4px;
 
-  color: white;
+  /* color: white; */
   cursor: pointer;
   font-family: "Inter", sans-serif;
   transition: all 0.3s ease-in-out;
@@ -45,6 +46,6 @@ export const StyledButton = styled(Button)`
   }
 `;
 
-export default function BasicButtons({ ...props }) {
-  return <StyledButton>{props.children}</StyledButton>;
+export default function BasicButtons(props: ButtonProps) {
+  return <StyledButton {...props}>{props.children}</StyledButton>;
 }

@@ -1,15 +1,16 @@
 import Typography from "@mui/material/Typography";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
-import Button from "../Button";
 import { useState } from "react";
+import { ButtonSignup } from "../../screens/SignUp";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+
 // -- types ----------------------------------------------------------------- //
 export interface ProductProps {
   Name?: string;
   Price?: string;
   Colors?: String[];
   Sizes?: String[];
-  qw?: boolean;
 }
 
 const StyledBox = styled(Box)`
@@ -82,7 +83,7 @@ export const ProductDetails = ({
           PRE-ORDER
         </Typography>
       </Typography>
-      <Box sx={{ display:"flex",flexDirection:"column",gap:"20px" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
         <Typography
           sx={{ color: "#8C8C8C", fontFamily: "'Inter', sans-serif" }}
         >
@@ -105,8 +106,12 @@ export const ProductDetails = ({
           })}
         </StyledBox>
       </Box>
-      <Box sx={{ display:"flex",flexDirection:"column",gap:"20px" }}>
-        <Typography  sx={{ color: "#8C8C8C", fontFamily: "'Inter', sans-serif" }}>SIZE</Typography>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <Typography
+          sx={{ color: "#8C8C8C", fontFamily: "'Inter', sans-serif" }}
+        >
+          SIZE
+        </Typography>
         <StyledBox>
           {Sizes?.map((item) => {
             return (
@@ -114,7 +119,8 @@ export const ProductDetails = ({
                 style={{
                   width: "30px",
                   height: "30px",
-                  fontFamily:"1.5rem"
+                  fontFamily: "1.5rem",
+                  boxSizing: "border-box",
                 }}
                 onClick={() => setActiveSize(`${item}`)}
                 className={activeSize === `${item}` ? "activeSize" : ""}
@@ -125,7 +131,9 @@ export const ProductDetails = ({
           })}
         </StyledBox>
       </Box>
-      <Button>ADD TO BAG</Button>
+      <ButtonSignup ProductButton>
+        <FavoriteBorderIcon /> ADD TO BAG{" "}
+      </ButtonSignup>
     </Box>
   );
 };

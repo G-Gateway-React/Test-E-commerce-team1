@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import img1 from "../../Assets/mask.png";
-import Button from "../Button";
+import StyledButton from "../Button/index";
 import Nav from "../Nav/Nav";
 
 export const BoxContent = styled(Box)`
@@ -81,7 +81,7 @@ function Hero() {
             Heritage That’s Liberating, Sexy, Comfy And Supremely Cool.
           </h3>
 
-          <Button>SHOP NEW ARRIVALS</Button>
+          <StyledButton>SHOP NEW ARRIVALS</StyledButton>
         </BoxContent>
       </Box>
     </Container>

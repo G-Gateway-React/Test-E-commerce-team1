@@ -1,19 +1,18 @@
 import "./App.css";
 import Bag from "./components/Bag/Bag";
-// import Home from './screens/Home';
-// import { Login } from './screens/Login';
-// import Home from "./screens/Home";
-// import { Login } from './screens/Login';
-// import { SignUp } from './screens/SignUp';
+import Home from './screens/Home';
+import { Login } from './screens/Login';
+import { SignUp } from './screens/SignUp';
+import { Product } from './screens/Product';
+
 
 function App() {
   return (
-    <>
-      {/* <Home/> */}
-      <Bag />
-    </>
+    // <Home/>
     // <SignUp/>
     // <Login/>
+    // <Bag />
+    <Product/>
   );
 }
 

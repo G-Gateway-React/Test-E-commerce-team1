@@ -3,7 +3,6 @@ import { styled } from "@mui/material/styles";
 
 export interface BagButton {
   BagButton?: boolean;
-  BagButton132?: boolean;
 }
 
 const BagBg =

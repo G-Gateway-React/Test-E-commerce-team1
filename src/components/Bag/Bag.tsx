@@ -10,7 +10,9 @@ import Join from "../Join/Join";
 import Footer from "../Footer/Footer";
 import visa from "../../Assets/visa.png";
 import maestro from "../../Assets/maestro.png";
-import Button from "../Button/index";
+import { StyledButton } from "../Button/index";
+import Box from "@mui/material/Box";
+
 import {
   Div,
   Img,
@@ -74,7 +76,9 @@ const Bag: React.FC = () => {
         </RemoveStyle>
         <Divider sx={{ my: 5 }} />
         <TotalStyle>Total USD $490.00</TotalStyle>
-        <Button variant="contained">CHECKOUT</Button>
+        <Box sx={{ display: "flex", justifyContent: "Center",m:'40px 0' }}>
+          <StyledButton BagButton>CHECKOUT</StyledButton>
+        </Box>
         <PayStyled>
           <Div>
             <Img src={maestro} alt="maestro" />

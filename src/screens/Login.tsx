@@ -96,7 +96,7 @@ export const Login = () => {
             flexDirection:"column",
             justifyContent: "end",
           }}>
-          <ButtonSignup>REGISTER NOW</ButtonSignup>
+          <ButtonSignup>Sign in</ButtonSignup>
           <Typography
             sx={{
               fontFamily: "'Inter', sans-serif",

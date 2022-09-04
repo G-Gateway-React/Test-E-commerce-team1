@@ -5,15 +5,31 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 type IProps = {
   black?: boolean;
   NoOfItems?: number;
 };
 
-const Child = ({ black, NoOfItems }: IProps) => {
+const Nav = ({ black, NoOfItems }: IProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isHome, setIsHome] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setIsHome(true);
+      console.log("151515");
+    } else {
+      setIsHome(false);
+      console.log("121212");
+    }
+  }, [location]);
   const StyledTypography = styled(Typography)(({ theme }) => ({
     fontSize: "1rem",
+    cursor: "pointer",
     fontWeight: black ? "400" : "200",
     color: black ? "#000" : "#fff",
     fontFamily: "'Inter', sans-serif",
@@ -52,15 +68,20 @@ const Child = ({ black, NoOfItems }: IProps) => {
 
           <StyledTypography>COLLECTIONS</StyledTypography>
 
-          <BaseStyledTypography>ShoOp</BaseStyledTypography>
+          <BaseStyledTypography onClick={() => navigate("/")}>
+            ShoOp
+          </BaseStyledTypography>
 
           <StyledTypography sx={{ display: "flex" }}>
             <SearchIcon /> SEARCH
           </StyledTypography>
+          <StyledTypography onClick={() => navigate("/Login")}>
+            SIGN IN
+          </StyledTypography>
 
-          <StyledTypography>SIGN IN</StyledTypography>
-
-          <StyledTypography>BAG({NoOfItems})</StyledTypography>
+          <StyledTypography onClick={() => navigate("/Bag")}>
+            BAG({NoOfItems})
+          </StyledTypography>
 
           <StyledTypography>
             <FavoriteBorderIcon />
@@ -71,4 +92,4 @@ const Child = ({ black, NoOfItems }: IProps) => {
   );
 };
 
-export default Child;
+export default Nav;

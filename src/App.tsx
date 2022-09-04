@@ -4,6 +4,7 @@ import Home from "./screens/Home";
 import { Login } from "./screens/Login";
 import { SignUp } from "./screens/SignUp";
 import { Product } from "./screens/Product";
+import { RedirectPage } from "./screens/RedirectPage";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Route path="/SignUp" element={<SignUp />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Bag" element={<Bag />} />
+      <Route path="*" element={<RedirectPage />} />
     </Routes>
   );
 }

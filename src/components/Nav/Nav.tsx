@@ -43,6 +43,7 @@ const Nav = ({ black, NoOfItems }: IProps) => {
   const BaseStyledTypography = styled(Typography)(({ theme }) => ({
     fontSize: "1.7rem",
     fontWeight: "900",
+    cursor: "pointer",
     color: black ? "#000" : "#fff",
 
     flexGrow: 8,

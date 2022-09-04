@@ -6,7 +6,7 @@ import { SignUp } from "./screens/SignUp";
 import { Product } from "./screens/Product";
 import { RedirectPage } from "./screens/RedirectPage";
 import { Routes, Route } from "react-router-dom";
-
+import { Toaster } from 'react-hot-toast';
 function App() {
   return (
     <Routes>

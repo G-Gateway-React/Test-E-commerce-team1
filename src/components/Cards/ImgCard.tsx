@@ -11,10 +11,61 @@ export const FatherCard = styled(Card)`
   border: none;
   box-shadow: none;
   transition: all 0.5s ease-in-out;
+  position: relative;
+
+  span {
+    position: absolute;
+    top: 80%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 60px;
+    color: #fff;
+    padding: 100% 0;
+    opacity: 0;
+    @media screen and (max-width: 992px) {
+      font-size: 20px;
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+  }
+  span:hover {
+    opacity: 1;
+  }
+  text {
+    position: absolute;
+    top: 80%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 44px;
+    color: #fff;
+    padding: 100% 0;
+    opacity: 0;
+    @media screen and (max-width: 992px) {
+      font-size: 18px;
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+    }
+  }
+  text:hover {
+    opacity: 1;
+  }
   :hover {
     filter: grayscale(80%);
   }
 `;
+
 export const Overlay = styled.div`
   position: absolute;
   width: 100%;
@@ -23,11 +74,16 @@ export const Overlay = styled.div`
   left: 0;
   z-index: -1;
 `;
-const ImgCard: React.FC = () => {
+
+interface ImgCardProps {
+  title: string;
+  img: string;
+}
+const ImgCard: React.FC<ImgCardProps> = ({ img, title }) => {
   return (
     <FatherCard>
-      <CardMedia component="img" image={ImageCard} alt="img" />
-      {/*  <text>T-Shirts</text> */}
+      <CardMedia component="img" image={img} alt="img" />
+      <span>{title}</span>
     </FatherCard>
   );
 };
@@ -38,6 +94,7 @@ export const ImgMaskCard: React.FC = () => {
   return (
     <FatherCard>
       <CardMedia component="img" image={ImageMaskCard} alt="img" />
+      <text>MORE INFO</text>
     </FatherCard>
   );
 };

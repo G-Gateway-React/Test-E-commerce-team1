@@ -1,4 +1,4 @@
-import { Card, Divider } from "@mui/material";
+import { Button, Card, Divider } from "@mui/material";
 import Nav from "../Nav/Nav";
 import BagItem from "./BagItem";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -58,8 +58,13 @@ const Bag: React.FC = () => {
           </LeftStyle>
           <RightStyle>
             <ClearIcon sx={{ fontSize: "140%" }} />
-            {/* <span>  &times;</span> */}
-            REMOVE ALL
+            <Button
+              variant="text"
+              color="inherit"
+              sx={{ fontSize: "85%", mt: "-5px" }}
+            >
+              REMOVE ALL
+            </Button>
           </RightStyle>
         </Line>
         <Divider />
@@ -72,11 +77,18 @@ const Bag: React.FC = () => {
           image={<BagCard />}
         />
         <RemoveStyle>
-          <ClearIcon sx={{ fontSize: "140%" }} /> REMOVE
+          <ClearIcon sx={{ fontSize: "140%" }} />
+          <Button
+            variant="text"
+            color="inherit"
+            sx={{ fontSize: "85%", mt: "-5px" }}
+          >
+            REMOVE
+          </Button>
         </RemoveStyle>
         <Divider sx={{ my: 5 }} />
         <TotalStyle>Total USD $490.00</TotalStyle>
-        <Box sx={{ display: "flex", justifyContent: "Center",m:'40px 0' }}>
+        <Box sx={{ display: "flex", justifyContent: "Center", m: "40px 0" }}>
           <StyledButton BagButton>CHECKOUT</StyledButton>
         </Box>
         <PayStyled>

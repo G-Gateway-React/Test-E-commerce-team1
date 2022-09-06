@@ -12,6 +12,7 @@ function Home() {
       {/* <Catalog /> */}
       {/* <Nav /> */}
       <Hero />
+      <Cards/>
     </>
   );
 }

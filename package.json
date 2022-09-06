@@ -10,6 +10,7 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
     "@mui/system": "^5.10.0",
+    "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -21,8 +22,14 @@
     "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
     "react-hook-form": "^7.34.0",
     "react-router": "^6.3.0",
+=======
+    "react-hook-form": "^7.34.2",
+    "react-hot-toast": "^2.3.0",
+    "react-redux": "^8.0.2",
+>>>>>>> f1f4466e1cb6cfda4d8c8141207767d256175965
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",

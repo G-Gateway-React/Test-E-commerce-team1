@@ -5,6 +5,36 @@ import { pink } from "@mui/material/colors";
 import Checkbox from "@mui/material/Checkbox";
 import styled from "@emotion/styled";
 import { Box, Button } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useAppDispatch } from "../store";
+import { signupThunk } from "../store/auth";
+import { passwordValidation } from "../Utils/validation";
+import toast from "react-hot-toast";
+
+interface FormValues {
+  FirstName: string;
+  LastName: string;
+  email: string;
+  password: string;
+  // confirmPassword: string;
+}
+
+const validationSchema = Yup.object().shape({
+  FirstName: Yup.string().required(),
+  LastName: Yup.string().required(),
+  email: Yup.string().email().required(),
+  password: Yup.string().matches(
+    passwordValidation.exp,
+    passwordValidation.msg
+  ),
+  confirmPassword: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Passwords must match"
+  ),
+});
 
 const Form = styled.form`
   display: flex;
@@ -40,6 +70,38 @@ export const ButtonSignup = styled(Button)`
 
 export const SignUp = () => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const dispatch = useAppDispatch();
+
+  const submitHandler = async (values: FormValues) => {
+    const { FirstName, LastName, password, email } = values;
+    const name = FirstName + LastName;
+    const result = await dispatch(
+      signupThunk({
+        name,
+        email,
+        password,
+      })
+    );
+
+    if (signupThunk.rejected.match(result)) {
+      if (result.payload?.msg) {
+        toast.error(result.payload.msg);
+      }
+    }
+    if (signupThunk.fulfilled.match(result)) {
+      toast.success("Signup success");
+    }
+  };
 
   return (
     <>
@@ -52,7 +114,7 @@ export const SignUp = () => {
           marginTop: "40px",
         }}
       >
-        <Form>
+        <Form onSubmit={handleSubmit(submitHandler)}>
           <Typography
             sx={{
               marginBottom: "10px",
@@ -63,17 +125,38 @@ export const SignUp = () => {
             CREATE ACCOUNT
           </Typography>
           <TextField
+            error={errors.FirstName?.message ? true : false}
+            helperText={errors?.FirstName?.message}
             id="standard-basic"
-            label="First Name"
+            label="FitstName"
+            variant="standard"
+            {...register("FirstName")}
+          />
+          <TextField
+            error={errors.LastName?.message ? true : false}
+            helperText={errors?.LastName?.message}
+            id="standard-basic"
+            label="LastName"
+            {...register("LastName")}
             variant="standard"
           />
-          <TextField id="standard-basic" label="Last Name" variant="standard" />
           <TextField
             id="standard-basic"
-            label="Email Address"
+            error={errors.email?.message ? true : false}
+            helperText={errors?.email?.message}
+            type="email"
+            label="Email"
+            {...register("email")}
             variant="standard"
           />
-          <TextField id="standard-basic" label="Password" variant="standard" />
+          <TextField
+            id="standard-basic"
+            error={errors.password?.message ? true : false}
+            helperText={errors?.password?.message}
+            label="Password"
+            {...register("password")}
+            variant="standard"
+          />
           <Box sx={{ display: "flex", margin: "15px 0" }}>
             <Checkbox
               size="small"
@@ -120,14 +203,16 @@ export const SignUp = () => {
             By signing up you agree to <span>Terms of Service</span> and{" "}
             <span>Privacy Policy</span>
           </Typography>
-          <ButtonSignup>REGISTER NOW</ButtonSignup>
+          <ButtonSignup type="submit">REGISTER NOW</ButtonSignup>
           <Typography
+            onClick={() => navigate("/Login")}
             sx={{
               fontFamily: "'Inter', sans-serif",
               fontSize: "0.9rem",
               textAlign: "center",
               color: "#D1094B",
               textDecoration: "underline",
+              cursor: "pointer",
             }}
           >
             I HAVE AN ACCOUNT

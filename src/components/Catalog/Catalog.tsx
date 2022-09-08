@@ -8,7 +8,7 @@ import Nav from "../Nav/Nav";
 const Catalog: React.FC = () => {
   return (
     <>
-      <Nav />
+      <Nav black />
       <Container>
         <Grid container spacing={0.5}>
           <Grid item xs={3}>

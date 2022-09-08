@@ -3,7 +3,10 @@ import { Typography, CircularProgress } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { pink } from "@mui/material/colors";
 import Checkbox from "@mui/material/Checkbox";
-
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import IconButton from "@material-ui/core/IconButton";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -57,7 +60,10 @@ const ButtonSignup = styled(Button)`
 export const Login = () => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const navigate = useNavigate();
-
+  const [maskPassword, SetMaskPassword] = useState(false);
+  const handleClickMaskPassword = () => {
+    SetMaskPassword(!maskPassword);
+  };
   const {
     register,
     handleSubmit,
@@ -116,14 +122,33 @@ export const Login = () => {
             helperText={errors?.email?.message}
             variant="standard"
           />
-          <TextField
-            id="standard-basic"
-            label="Password"
-            {...register("password")}
-            error={errors?.password?.message ? true : false}
-            helperText={errors?.password?.message}
-            variant="standard"
-          />
+          <Box
+            sx={{
+              position: "relative",
+            }}
+          >
+            <TextField
+              id="standard-basic"
+              type={maskPassword ? "text" : "password"}
+              error={errors.password?.message ? true : false}
+              helperText={errors?.password?.message}
+              label="Password"
+              {...register("password")}
+              variant="standard"
+              sx={{
+                width: "100%",
+              }}
+            />
+            <IconButton
+              onClick={handleClickMaskPassword}
+              style={{
+                position: "absolute",
+                right: "0",
+              }}
+            >
+              {maskPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+          </Box>
           <Box sx={{ display: "flex", margin: "15px 0" }}>
             <Checkbox
               size="small"

@@ -13,12 +13,17 @@ import { useAppDispatch } from "../store";
 import { signupThunk } from "../store/auth";
 import { passwordValidation } from "../Utils/validation";
 import toast from "react-hot-toast";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import IconButton from "@material-ui/core/IconButton";
+import { useState } from "react";
 
 interface FormValues {
   FirstName: string;
   LastName: string;
   email: string;
   password: string;
+  check: boolean;
   // confirmPassword: string;
 }
 
@@ -34,6 +39,7 @@ const validationSchema = Yup.object().shape({
     [Yup.ref("password"), null],
     "Passwords must match"
   ),
+  check: Yup.bool().oneOf([true], "Checkbox selection is required"),
 });
 
 const Form = styled.form`
@@ -69,6 +75,10 @@ export const ButtonSignup = styled(Button)`
 `;
 
 export const SignUp = () => {
+  const [maskPassword, SetMaskPassword] = useState(false);
+  const handleClickMaskPassword = () => {
+    SetMaskPassword(!maskPassword);
+  };
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const navigate = useNavigate();
 
@@ -149,17 +159,38 @@ export const SignUp = () => {
             {...register("email")}
             variant="standard"
           />
-          <TextField
-            id="standard-basic"
-            error={errors.password?.message ? true : false}
-            helperText={errors?.password?.message}
-            label="Password"
-            {...register("password")}
-            variant="standard"
-          />
+          <Box
+            sx={{
+              position: "relative",
+            }}
+          >
+            <TextField
+              id="standard-basic"
+              type={maskPassword ? "text" : "password"}
+              error={errors.password?.message ? true : false}
+              helperText={errors?.password?.message}
+              label="Password"
+              {...register("password")}
+              variant="standard"
+              sx={{
+                width: "100%",
+              }}
+            />
+            <IconButton
+              onClick={handleClickMaskPassword}
+              style={{
+                position: "absolute",
+                right: "0",
+              }}
+            >
+              {maskPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+          </Box>
+
           <Box sx={{ display: "flex", margin: "15px 0" }}>
             <Checkbox
               size="small"
+              {...register("check")}
               {...label}
               // defaultChecked
               sx={{
@@ -172,7 +203,6 @@ export const SignUp = () => {
                 display: "inline",
               }}
             />
-
             <Typography
               sx={{
                 // marginBottom: "20px",
@@ -183,7 +213,9 @@ export const SignUp = () => {
             >
               Let's get personal! We'll send you only the good stuff: Exclusive
               early access to Sale, new arrivals and promotions. No nasties.
+              <span style={{color:'red',fontSize:'0.9rem'}}><br></br>{errors.check?.message}</span>
             </Typography>
+            {/* <div className="invalid-feedback">{errors.check?.message}</div> */}
           </Box>
 
           <Typography

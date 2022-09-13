@@ -63,7 +63,7 @@ const Nav = ({ black, NoOfItems }: IProps) => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="transparent" elevation={0}>
         <Toolbar sx={{ fontSize: "0.5rem", marginTop: "15px" }}>
-          <StyledTypography>NEW ARRIVALS</StyledTypography>
+          <StyledTypography onClick={() => navigate("/t")}>NEW ARRIVALS</StyledTypography>
 
           <StyledTypography>SHOP</StyledTypography>
 
@@ -73,7 +73,10 @@ const Nav = ({ black, NoOfItems }: IProps) => {
             ShoOp
           </BaseStyledTypography>
 
-          <StyledTypography sx={{ display: "flex" }}>
+          <StyledTypography
+            sx={{ display: "flex" }}
+            onClick={() => navigate("/Catalog")}
+          >
             <SearchIcon /> SEARCH
           </StyledTypography>
           <StyledTypography onClick={() => navigate("/Login")}>

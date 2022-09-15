@@ -16,6 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { passwordValidation } from "../Utils/validation";
 import { useAppDispatch, useAppSelector } from "../store";
 import { loginThunk } from "../store/auth";
+import { getProducts } from "../store/product";
 import toast from "react-hot-toast";
 
 interface FormValues {
@@ -88,8 +89,10 @@ export const Login = () => {
       toast.error("Incorrect email or passowrd");
     }
     if (loginThunk.fulfilled.match(loginResult)) {
-      toast.success("Login Success");
+      toast.success("Login Success, Welcome to the App!");
+      navigate('/')
     }
+    const fetchProducts = await dispatch(getProducts());
   };
 
   return (
@@ -184,7 +187,7 @@ export const Login = () => {
               justifyContent: "end",
             }}
           >
-            <ButtonSignup type="submit" >Sign in</ButtonSignup>
+            <ButtonSignup type="submit">Sign in</ButtonSignup>
             <Typography
               onClick={() => navigate("/SignUp")}
               sx={{

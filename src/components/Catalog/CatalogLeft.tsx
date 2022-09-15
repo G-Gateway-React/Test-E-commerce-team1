@@ -4,7 +4,6 @@ import RangeSlider from "./Slider";
 import { pink } from "@mui/material/colors";
 import {
   CatalogTitle,
-//   CheckboxStyle,
   FilterStyle,
   FilterTitle,
   LeftStyle,
@@ -24,8 +23,6 @@ const CatalogLeft: React.FC = () => {
     <>
       <CatalogTitle>CATEGORIES</CatalogTitle>
       <LeftStyle>
-        {/* <CheckboxStyle type="checkbox" checked />
-        <CheckboxStyle type="checkbox" /> */}
         <span>
           <LinkCat href="/">
             <Checkbox
@@ -138,7 +135,6 @@ const CatalogLeft: React.FC = () => {
         <span>
           <RemoveIcon /> PRICE
         </span>
-        {/* <span></span> */}
         <RangeSlider />
 
         <span>

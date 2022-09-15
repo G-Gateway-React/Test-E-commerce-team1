@@ -88,13 +88,16 @@ const ImgCard: React.FC<ImgCardProps> = ({ img, title }) => {
   );
 };
 
-export default ImgCard;
+type IProps = {
+  title?: string;
+  url?: string;
+};
 
-export const ImgMaskCard: React.FC = () => {
+export const ImgMaskCard = ({ title, url }: IProps) => {
   return (
     <FatherCard>
-      <CardMedia component="img" image={ImageMaskCard} alt="img" />
-      <text>MORE INFO</text>
+      <CardMedia component="img" image={( url && url) || ImageMaskCard} alt="img" />
+      <text>{(title && title) || 'MORE INFO'}</text>
     </FatherCard>
   );
 };
@@ -106,3 +109,5 @@ export const ImgMasTowkCard: React.FC = () => {
     </FatherCard>
   );
 };
+
+export default ImgCard;

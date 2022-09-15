@@ -1,4 +1,4 @@
-import ImgCard, { ImgMaskCard, ImgMasTowkCard, Overlay } from "./ImgCard";
+import ImgCard, { ImgMaskCard, ImgMasTowkCard } from "./ImgCard";
 import * as React from "react";
 import { CardStyle, CardMaskStyle } from "./Style";
 import Title, { TitleMask } from "./Title";
@@ -6,19 +6,22 @@ import { Container } from "@mui/system";
 import Footer from "../Footer/Footer";
 import Join from "../Join/Join";
 import axios from "axios";
-import ImageCard from "../../Assets/c.png";
+import { useAppSelector } from "../../store/index";
 
 interface Category {
   id: string;
   title: string;
   image: string;
-  
 }
 
 const img =
   "https://images.unsplash.com/photo-1661347335413-e4ef4c97d625?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1138&q=80";
 
 const Cards: React.FC = () => {
+  const products = useAppSelector(
+    (state) => state.productReducer.products
+  ).slice(0, 4);
+  console.log(products);
   const [categories, setCategories] = React.useState<Category[]>([]);
   React.useEffect(() => {
     axios
@@ -29,7 +32,7 @@ const Cards: React.FC = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setCategories(
           res.data.map((item: any) => {
             return {
@@ -42,23 +45,36 @@ const Cards: React.FC = () => {
   }, []);
   return (
     <>
-    <Container>
+      <Container>
         <Title />
-       <CardStyle>   {categories.map((cat) => (
-     <ImgCard title={cat.title} img={cat.image} /> 
-      ))} </CardStyle>
-      
-          {/* <Overlay></Overlay> */}
-          {/* <ImgCard /> <ImgCard /> <ImgCard />
+        <CardStyle>
+          {" "}
+          {categories.map((cat) => (
+            <ImgCard title={cat.title} img={cat.image} />
+          ))}{" "}
+        </CardStyle>
+
+        {/* <Overlay></Overlay> */}
+        {/* <ImgCard /> <ImgCard /> <ImgCard />
           <ImgCard /> <ImgCard /> <ImgCard />
           <ImgCard /> <ImgCard /> <ImgCard /> */}
-      
+
         <TitleMask />
         <CardMaskStyle>
           {/* <Overlay></Overlay> */}
-          <ImgMaskCard />
-          <ImgMasTowkCard /> <ImgMasTowkCard />
-          <ImgMasTowkCard />
+
+          {products.length == 0 ? (
+            <>
+              <ImgMaskCard title="" url="" />
+              <ImgMasTowkCard />
+              <ImgMasTowkCard />
+              <ImgMasTowkCard />
+            </>
+          ) : (
+            products.map((item: any) => {
+              return <ImgMaskCard title={item.title} url={item.url} />;
+            })
+          )}
         </CardMaskStyle>
         <Join />
         <Footer />

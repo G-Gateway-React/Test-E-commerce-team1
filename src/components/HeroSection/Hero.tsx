@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import img1 from "../../Assets/mask.png";
 import StyledButton from "../Button/index";
-import Nav from "../Nav/Nav";
 
 export const BoxContent = styled(Box)`
   width: 35%;
@@ -60,7 +59,6 @@ function Hero() {
         flexDirection: "column",
       }}
     >
-      <Nav NoOfItems={2}/>
       <Box
         sx={{
           height: "100%",

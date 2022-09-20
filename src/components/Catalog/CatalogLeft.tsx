@@ -1,5 +1,5 @@
 import { Checkbox, Link, styled } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import RangeSlider from "./Slider";
 import { pink } from "@mui/material/colors";
 import {
@@ -10,6 +10,8 @@ import {
 } from "./CatalogStyle";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { useAppSelector, useAppDispatch } from "../../store";
+import { setFilteredCategories } from "../../store/categories";
 
 export const LinkCat = styled(Link)`
   text-decoration: none;
@@ -19,11 +21,51 @@ export const LinkCat = styled(Link)`
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const CatalogLeft: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const [Checked, setChecked] = useState<any>([]);
+
+  const handleChange = (id: string) => {
+    const currentIndex = Checked.indexOf(id);
+    const newChecked = [...Checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(id);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+    dispatch(setFilteredCategories(newChecked));
+  };
+  const categories = useAppSelector(
+    (state) => state.categories.CategoriesReducer.categories
+  );
+
   return (
     <>
       <CatalogTitle>CATEGORIES</CatalogTitle>
       <LeftStyle>
-        <span>
+        {categories.map((category: any) => {
+          return (
+            <span>
+              <LinkCat>
+                <Checkbox
+                  {...label}
+                  sx={{
+                    "&.Mui-checked": {
+                      color: pink[600],
+                    },
+                  }}
+                  onChange={() => handleChange(category.id)}
+                  checked={Checked.indexOf(category.id) === -1 ? false : true}
+                />
+                {category.title}
+              </LinkCat>
+            </span>
+          );
+        })}
+
+        {/* <span>
           <LinkCat href="/">
             <Checkbox
               {...label}
@@ -124,7 +166,7 @@ const CatalogLeft: React.FC = () => {
             <Checkbox {...label} />
             SHOP ALL
           </LinkCat>
-        </span>
+        </span> */}
       </LeftStyle>
 
       <FilterTitle>FILTERS</FilterTitle>

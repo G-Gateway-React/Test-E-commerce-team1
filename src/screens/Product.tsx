@@ -1,4 +1,3 @@
-import Nav from "../components/Nav/Nav";
 import MySwiper from "../components/Swiper/Swiper";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -20,6 +19,8 @@ import { ImgMaskCard, ImgMasTowkCard } from "../components/Cards/ImgCard";
 import { CardMaskStyle, TitleMaskStyle } from "../components/Cards/Style";
 import Img1 from "../Assets/mask2.png";
 import Img2 from "../Assets/mask 3.png";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../store";
 const StyledTypography = styled(Typography)`
   font-family: "Inter", sans-serif;
 `;
@@ -48,13 +49,8 @@ const Accordion = styled((props: AccordionProps) => (
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
   <MuiAccordionSummary expandIcon={""} {...props} />
 ))(({ theme }) => ({
-  // backgroundColor:
-  //   theme.palette.mode === "dark"
-  //     ? "rgba(255, 255, 255, .05)"
-  //     : "rgba(0, 0, 0, .03)",
   flexDirection: "row-reverse",
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-    // transform: "rotate(90deg)",
     color: "#D1094B",
   },
   "& .MuiAccordionSummary-content": {
@@ -62,12 +58,15 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
   },
 }));
 
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  // padding: theme.spacing(2),
-  // borderTop: "1px solid rgba(0, 0, 0, .125)",
-}));
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({}));
 
 export const Product = () => {
+  const products = useAppSelector(
+    (state) => state.productReducer.products
+  ).slice(0, 4);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const Item = location.state as any;
   const [expanded, setExpanded] = React.useState<string | false>("");
   const [MyColor, setMyColor] = useState("");
 
@@ -93,9 +92,17 @@ export const Product = () => {
           width: "95%",
         }}
       >
-        <Nav black NoOfItems={2} />
-
-        <Box>Shop / Shirts / Skeleton Hand Shirt</Box>
+        <Box>
+          <span style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+            Shop
+          </span>{" "}
+          /{" "}
+          <span style={{ cursor: "pointer" }} onClick={() => navigate(-1)}>
+            {" "}
+            {Item.CategoryTitle}
+          </span>{" "}
+          / {Item.title}
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -106,11 +113,11 @@ export const Product = () => {
           }}
         >
           <Box sx={{ width: "60%" }}>
-            <MySwiper />
+            <MySwiper url={Item.url} />
           </Box>
           <Box sx={{ display: "flex", width: "35%" }}>
             <ProductDetails
-              Name="SKELETON HAND SHIRT"
+              Name={Item.title}
               Colors={[
                 "#DFDED9",
                 "#FF6E61",
@@ -124,8 +131,9 @@ export const Product = () => {
                 "#FFA7A7",
                 "#1AC20C",
               ]}
-              Price="24.59"
+              Price={` ${Item.price}`}
               Sizes={["S", "M", "L", "XL"]}
+              Item={Item}
             />
           </Box>
         </Box>
@@ -510,10 +518,22 @@ export const Product = () => {
           </Box>
         </Box>
         <TitleMaskStyle>YOU MAY ALSO LIKE</TitleMaskStyle>
+
         <CardMaskStyle>
-          <ImgMaskCard /> <ImgMasTowkCard /> <ImgMasTowkCard />{" "}
-          <ImgMasTowkCard />
+          {products.length === 0 ? (
+            <>
+              <ImgMaskCard />
+              <ImgMasTowkCard />
+              <ImgMasTowkCard />
+              <ImgMasTowkCard />
+            </>
+          ) : (
+            products.map((item: any) => {
+              return <ImgMaskCard title={item.title} url={item.url} />;
+            })
+          )}
         </CardMaskStyle>
+
         <Join />
         <Footer />
       </Container>

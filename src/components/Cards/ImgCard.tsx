@@ -96,8 +96,12 @@ type IProps = {
 export const ImgMaskCard = ({ title, url }: IProps) => {
   return (
     <FatherCard>
-      <CardMedia component="img" image={( url && url) || ImageMaskCard} alt="img" />
-      <text>{(title && title) || 'MORE INFO'}</text>
+      <CardMedia
+        component="img"
+        image={(url && url) || ImageMaskCard}
+        alt="img"
+      />
+      <text>{(title && title) || "MORE INFO"}</text>
     </FatherCard>
   );
 };

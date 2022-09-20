@@ -37,7 +37,6 @@ export const getProducts = createAsyncThunk(
           },
         }
       );
-
       const formattedData = data.data.data.map((item) => {
         return {
           id: item.id,
@@ -68,7 +67,7 @@ const products = createSlice({
       //   console.log(action.payload.data.data)
     });
     builder.addCase(getProducts.rejected, (state, action) => {
-      console.log(action);
+      // console.log(action);
     });
   },
 });

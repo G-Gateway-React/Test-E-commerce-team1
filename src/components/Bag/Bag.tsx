@@ -1,5 +1,4 @@
 import { Button, Card, Divider } from "@mui/material";
-import Nav from "../Nav/Nav";
 import BagItem from "./BagItem";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Container } from "@mui/system";
@@ -12,6 +11,8 @@ import visa from "../../Assets/visa.png";
 import maestro from "../../Assets/maestro.png";
 import { StyledButton } from "../Button/index";
 import Box from "@mui/material/Box";
+import { ResetBagItem } from "../../store/bag";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 import {
   Div,
@@ -23,6 +24,8 @@ import {
   RightStyle,
   TotalStyle,
 } from "./BagStyle";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 export const DividerStyle = styled(Divider)`
   margin: 30px 0;
@@ -37,59 +40,108 @@ export const FatherCard = styled(Card)`
 export const ClearStyle = styled(ClearIcon)`
   font-size: 35px;
 `;
-
-export const BagCard: React.FC = () => {
+interface BagProps {
+  url: string;
+}
+export const BagCard: React.FC<BagProps> = ({ url }) => {
   return (
     <FatherCard>
-      <CardMedia component="img" image={ImageBagCard} alt="img" />
+      <CardMedia component="img" image={url} alt="img" />
     </FatherCard>
   );
 };
 
 const Bag: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const Counter = useAppSelector((state) => state.BagItems.data.Counter);
+  const auth = useAppSelector((state) => state.auth.user?.name);
+  const Items = useAppSelector((state) => state.BagItems.data.BagItemsArr);
+  // let [sum,setSum]= useState(0);
+  let sum = 0;
+  Items.map((w: any) => (sum += Number(w.price)));
+  const handleDelete = (id: string, source: boolean) => {
+    if (source) {
+      dispatch(ResetBagItem([]));
+    } else {
+      const clone = [...Items];
+      clone.splice(
+        clone.findIndex((o: any) => o.id === id),
+        1
+      );
+      dispatch(ResetBagItem(clone));
+      // }
+    }
+  };
   return (
     <>
-      <Nav black />
       <Container>
         <Line>
           <LeftStyle>
             <text>BAG</text>
-            <small>2 items</small>
+            <small>{Counter} items</small>
           </LeftStyle>
-          <RightStyle>
-            <ClearIcon sx={{ fontSize: "140%" }} />
-            <Button
-              variant="text"
-              color="inherit"
-              sx={{ fontSize: "85%", mt: "-5px" }}
-            >
-              REMOVE ALL
-            </Button>
-          </RightStyle>
+          {Items.length > 0 ? (
+            <RightStyle>
+              <ClearIcon sx={{ fontSize: "140%" }} />
+              <Button
+                variant="text"
+                color="inherit"
+                sx={{ fontSize: "85%", mt: "-5px" }}
+                onClick={() => handleDelete("", true)}
+              >
+                REMOVE ALL
+              </Button>
+            </RightStyle>
+          ) : (
+            ""
+          )}
         </Line>
         <Divider />
-        <BagItem
-          title={"NIKE SHOES BOYFRIEND PAIRS"}
-          price={"USD $340.00"}
-          color={"WHITE"}
-          size={"42"}
-          quantity={1}
-          image={<BagCard />}
-        />
-        <RemoveStyle>
-          <ClearIcon sx={{ fontSize: "140%" }} />
-          <Button
-            variant="text"
-            color="inherit"
-            sx={{ fontSize: "85%", mt: "-5px" }}
-          >
-            REMOVE
-          </Button>
-        </RemoveStyle>
+        {Items.length > 0
+          ? Items.map((item: any) => {
+              return (
+                <>
+                  <BagItem
+                    title={item.title}
+                    price={item.price}
+                    color={"WHITE"}
+                    size={"42"}
+                    quantity={1}
+                    image={<BagCard url={item.url} />}
+                  />
+                  <RemoveStyle>
+                    <ClearIcon sx={{ fontSize: "140%" }} />
+                    <Button
+                      variant="text"
+                      color="inherit"
+                      sx={{ fontSize: "85%", mt: "-5px" }}
+                      onClick={() => handleDelete(item.id, false)}
+                    >
+                      REMOVE
+                    </Button>
+                  </RemoveStyle>
+                </>
+              );
+            })
+          : "No Products Added"}
+
         <Divider sx={{ my: 5 }} />
-        <TotalStyle>Total USD $490.00</TotalStyle>
+        <TotalStyle>
+          Total: {Items.length > 0 ? `USD $${sum}` : "0$"}
+        </TotalStyle>
         <Box sx={{ display: "flex", justifyContent: "Center", m: "40px 0" }}>
-          <StyledButton BagButton>CHECKOUT</StyledButton>
+          <StyledButton
+            BagButton
+            onClick={() => {
+              if (auth != null) {
+                Items.length > 0
+                  ? toast.success("Done")
+                  : toast.error("Add Some Products to your Bag, Plz");
+              } else toast.error("SIGN IN ... Plz");
+            }}
+          >
+            CHECKOUT
+          </StyledButton>
         </Box>
         <PayStyled>
           <Div>

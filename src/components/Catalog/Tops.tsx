@@ -1,10 +1,10 @@
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import styled from "@emotion/styled";
-import ImageTops from "../../Assets/tops.png";
 
 export const FatherCard = styled(Card)`
-  width: 32%;
+  /* width: 32%; */
+  /* height: 250px; */
   border: none;
   box-shadow: none;
   transition: all 0.5s ease-in-out;
@@ -56,13 +56,23 @@ export const Rectangle = styled.div`
   }
 `;
 
-const Tops: React.FC = () => {
+interface TopsProps {
+  price: string;
+  img: string;
+}
+
+const Tops: React.FC<TopsProps> = ({ img, price }) => {
   return (
     <>
       <FatherCard>
-        <CardMedia component="img" image={ImageTops} alt="img"></CardMedia>
+        <CardMedia
+          component="img"
+          image={img}
+          alt="img"
+          sx={{ objectFit: "cover" }}
+        ></CardMedia>
         <Rectangle>
-          <text>$24.59</text>
+          <text>${price}</text>
           <span></span>
         </Rectangle>
       </FatherCard>

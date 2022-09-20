@@ -2,7 +2,6 @@ import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Astyle, BagItemStyle, RemoveStyle } from "./BagStyle";
 
-
 interface Props {
   image: any;
   title: string;
@@ -31,13 +30,13 @@ const BagItem: React.FC<Props> = ({
           </Astyle>
           <RemoveStyle>
             <span>
-              COLOR: {color} <ExpandMoreIcon/>
+              COLOR: {color} <ExpandMoreIcon />
             </span>
             <span>
               SIZE: {size} <ExpandMoreIcon />
             </span>
             <span>
-              QUANTITY: {quantity} <ExpandMoreIcon  />
+              QUANTITY: {quantity} <ExpandMoreIcon />
             </span>
           </RemoveStyle>
         </div>

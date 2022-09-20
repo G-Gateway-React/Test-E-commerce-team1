@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Nav from "../components/Nav/Nav";
 import { useNavigate } from "react-router-dom";
 
 export const RedirectPage = () => {
@@ -25,7 +24,6 @@ export const RedirectPage = () => {
 
   return (
     <Container maxWidth="xl">
-      <Nav black />
       <Box
         sx={{
           display: "flex",

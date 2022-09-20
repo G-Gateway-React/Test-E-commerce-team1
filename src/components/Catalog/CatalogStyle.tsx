@@ -39,9 +39,12 @@ export const SearchStyled = styled.div`
 
 export const CardStyle = styled.div`
   display: flex;
-  gap: 10px;
-  justify-content: center;
+  gap: 15px;
+  justify-content: start;
   flex-wrap: wrap;
+  > div {
+    width: 30%;
+  }
 `;
 
 export const LeftStyle = styled.div`

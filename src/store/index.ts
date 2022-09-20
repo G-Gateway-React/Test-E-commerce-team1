@@ -5,6 +5,7 @@ import authReducer from "./auth";
 import productReducer from "./product";
 import categories from "./categories";
 import BagItems from "./bag";
+import refs from "./refs";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     productReducer,
     categories,
     BagItems,
+    refs,
   },
 });
 

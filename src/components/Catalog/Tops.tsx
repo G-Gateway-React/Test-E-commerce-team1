@@ -9,6 +9,7 @@ export const FatherCard = styled(Card)`
   box-shadow: none;
   transition: all 0.5s ease-in-out;
   position: relative;
+  cursor: pointer;
   :hover {
     filter: grayscale(80%);
   }

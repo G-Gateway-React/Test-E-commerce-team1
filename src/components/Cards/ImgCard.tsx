@@ -7,12 +7,12 @@ import ImagMasTowkCard from "../../Assets/m2.png";
 import styled from "@emotion/styled";
 
 export const FatherCard = styled(Card)`
-  width: 32%;
+  /* width: 32%; */
   border: none;
   box-shadow: none;
   transition: all 0.5s ease-in-out;
   position: relative;
-
+  cursor: pointer;
   span {
     position: absolute;
     top: 80%;

@@ -6,8 +6,11 @@ import { Container } from "@mui/system";
 import Footer from "../Footer/Footer";
 import Join from "../Join/Join";
 import axios from "axios";
-import { useAppSelector } from "../../store/index";
-import { isUndefined } from "util";
+import { useAppSelector, useAppDispatch } from "../../store";
+import { useNavigate } from "react-router-dom";
+import { setFilteredCategories } from "../../store/categories";
+import { setRefs } from "../../store/refs";
+import { useRef } from "react";
 
 interface Category {
   id: string;
@@ -19,6 +22,15 @@ const img =
   "https://images.unsplash.com/photo-1661347335413-e4ef4c97d625?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1138&q=80";
 
 const Cards: React.FC = () => {
+  const dispatch = useAppDispatch();
+//   const Ref1 = useRef<any>(null);
+//   const Ref2 = useRef<any>(null);
+// const handleScroll = () => Ref2.current?.scrollIntoView({behavior: 'smooth'});
+//   dispatch(setRefs(handleScroll()));
+  const FilteredCategories = useAppSelector(
+    (state) => state.categories.FilteredCategoriesReducer.FilteredCategories
+  );
+  const navigate = useNavigate();
   const products = useAppSelector(
     (state) => state.productReducer.products
   ).slice(0, 4);
@@ -45,15 +57,27 @@ const Cards: React.FC = () => {
   return (
     <>
       <Container>
+        {/* <div onClick={()=>handleScroll()}>sdafsadf</div> */}
         <Title />
         <CardStyle>
-          {" "}
-          {categories.map((cat,index) => (
-            <ImgCard title={cat.title} img={cat.image} key={index}/>
+          {categories.map((cat, index) => (
+            <div
+              onClick={() => {
+                navigate(`/Catalog`);
+                window.scrollTo(0, 0);
+                dispatch(
+                  setFilteredCategories([...FilteredCategories, cat.id])
+                );
+              }}
+            >
+              <ImgCard title={cat.title} img={cat.image} key={index} />
+            </div>
           ))}{" "}
         </CardStyle>
-
         <TitleMask />
+        {/* <div ref={Ref2}>
+          <TitleMask />
+        </div> */}
         <CardMaskStyle>
           {products.length === 0 ? (
             <>
@@ -63,8 +87,18 @@ const Cards: React.FC = () => {
               <ImgMasTowkCard />
             </>
           ) : (
-            products.map((item: any,index:number) => {
-              return <ImgMaskCard title={item.title} url={item.url}  key={index}/>;
+            products.map((item: any, index: number) => {
+              return (
+                <div
+                  onClick={() => {
+                    // location.pathname = `/Product/${e.id}`;
+                    navigate(`/Product`, { state: item });
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  <ImgMaskCard title={item.title} url={item.url} key={index} />
+                </div>
+              );
             })
           )}
         </CardMaskStyle>

@@ -22,16 +22,19 @@ const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const CatalogLeft: React.FC = () => {
   const dispatch = useAppDispatch();
+  const FilteredCategories = useAppSelector(
+    (state) => state.categories.FilteredCategoriesReducer.FilteredCategories
+  );
   const [Checked, setChecked] = useState<any>([]);
 
   const handleChange = (id: string) => {
-    const currentIndex = Checked.indexOf(id);
+    const currentIndex = FilteredCategories.indexOf(id);
     const newChecked = [...Checked];
 
     if (currentIndex === -1) {
       newChecked.push(id);
     } else {
-      newChecked.splice(currentIndex, 1);
+      dispatch(setFilteredCategories(newChecked.splice(currentIndex, 1)));
     }
 
     setChecked(newChecked);
@@ -57,7 +60,11 @@ const CatalogLeft: React.FC = () => {
                     },
                   }}
                   onChange={() => handleChange(category.id)}
-                  checked={Checked.indexOf(category.id) === -1 ? false : true}
+                  checked={
+                    FilteredCategories.indexOf(category.id) === -1
+                      ? false
+                      : true
+                  }
                 />
                 {category.title}
               </LinkCat>

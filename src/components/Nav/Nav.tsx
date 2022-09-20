@@ -14,14 +14,9 @@ const Nav = () => {
   const location = useLocation();
   const [isHome, setIsHome] = useState(false);
   const Counter = useAppSelector((state) => state.BagItems.data.Counter);
+  const Refs = useAppSelector((state) => state.refs.data.RefsArr);
   useEffect(() => {
-    if (location.pathname === "/") {
-      setIsHome(false);
-      // console.log("151515");
-    } else {
-      setIsHome(true);
-      // console.log("121212");
-    }
+    (location.pathname === "/") ? setIsHome(false) : setIsHome(true);
   }, [location]);
   const StyledTypography = styled(Typography)(({ theme }) => ({
     fontSize: "1rem",
@@ -65,13 +60,17 @@ const Nav = () => {
     >
       <AppBar position="static" color="transparent" elevation={0}>
         <Toolbar sx={{ fontSize: "0.5rem", marginTop: "15px" }}>
-          <StyledTypography onClick={() => navigate("/t")}>
+          <StyledTypography onClick={() => navigate("/Catalog")}>
             NEW ARRIVALS
           </StyledTypography>
 
-          <StyledTypography>SHOP</StyledTypography>
+          <StyledTypography onClick={() => navigate("/Catalog")}>
+            SHOP
+          </StyledTypography>
 
-          <StyledTypography>COLLECTIONS</StyledTypography>
+          <StyledTypography onClick={() => navigate("/Catalog")}>
+            COLLECTIONS
+          </StyledTypography>
 
           <BaseStyledTypography onClick={() => navigate("/")}>
             ShoOp

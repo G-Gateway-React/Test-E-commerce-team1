@@ -11,7 +11,7 @@ const HomeBg =
   "linear-gradient(92.3deg,rgba(255, 255, 255, 0.7) 1.85%,rgba(255, 255,255, 0.3) 100%)";
 
 export const StyledButton = styled(Button)`
-  min-width: ${(p: BagButton) => (p.BagButton ? '35%' : '50%')};
+  min-width: ${(p: BagButton) => (p.BagButton ? "35%" : "50%")};
   box-sizing: border-box;
   height: 50px;
   padding: 15px 20px;

@@ -7,31 +7,27 @@ import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../../store/index";
 
-type IProps = {
-  black?: boolean;
-  NoOfItems?: number;
-};
-
-const Nav = ({ black, NoOfItems }: IProps) => {
+const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isHome, setIsHome] = useState(false);
-
+  const Counter = useAppSelector((state) => state.BagItems.data.Counter);
   useEffect(() => {
     if (location.pathname === "/") {
-      setIsHome(true);
-      console.log("151515");
-    } else {
       setIsHome(false);
-      console.log("121212");
+      // console.log("151515");
+    } else {
+      setIsHome(true);
+      // console.log("121212");
     }
   }, [location]);
   const StyledTypography = styled(Typography)(({ theme }) => ({
     fontSize: "1rem",
     cursor: "pointer",
-    fontWeight: black ? "400" : "200",
-    color: black ? "#000" : "#fff",
+    fontWeight: isHome ? "400" : "200",
+    color: isHome ? "#000" : "#fff",
     fontFamily: "'Inter', sans-serif",
     flexGrow: 1,
 
@@ -44,7 +40,7 @@ const Nav = ({ black, NoOfItems }: IProps) => {
     fontSize: "1.7rem",
     fontWeight: "900",
     cursor: "pointer",
-    color: black ? "#000" : "#fff",
+    color: isHome ? "#000" : "#fff",
 
     flexGrow: 8,
     textAlign: "center",
@@ -60,10 +56,18 @@ const Nav = ({ black, NoOfItems }: IProps) => {
   }));
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box
+      sx={{
+        flexGrow: 100,
+        position: !isHome ? "absolute" : "relative",
+        width: "100%",
+      }}
+    >
       <AppBar position="static" color="transparent" elevation={0}>
         <Toolbar sx={{ fontSize: "0.5rem", marginTop: "15px" }}>
-          <StyledTypography onClick={() => navigate("/t")}>NEW ARRIVALS</StyledTypography>
+          <StyledTypography onClick={() => navigate("/t")}>
+            NEW ARRIVALS
+          </StyledTypography>
 
           <StyledTypography>SHOP</StyledTypography>
 
@@ -83,8 +87,14 @@ const Nav = ({ black, NoOfItems }: IProps) => {
             SIGN IN
           </StyledTypography>
 
-          <StyledTypography onClick={() => navigate("/Bag")}>
-            BAG({NoOfItems})
+          <StyledTypography
+            onClick={() => navigate("/Bag")}
+            sx={{
+              color: Counter > 0 ? "#D1094B" : "",
+              fontWeight: Counter > 0 ? "500" : "",
+            }}
+          >
+            BAG {Counter > 0 ? `(${Counter})` : ""}
           </StyledTypography>
 
           <StyledTypography>

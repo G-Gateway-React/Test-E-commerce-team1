@@ -7,6 +7,7 @@ import Footer from "../Footer/Footer";
 import Join from "../Join/Join";
 import axios from "axios";
 import { useAppSelector } from "../../store/index";
+import { isUndefined } from "util";
 
 interface Category {
   id: string;
@@ -21,7 +22,6 @@ const Cards: React.FC = () => {
   const products = useAppSelector(
     (state) => state.productReducer.products
   ).slice(0, 4);
-  console.log(products);
   const [categories, setCategories] = React.useState<Category[]>([]);
   React.useEffect(() => {
     axios
@@ -32,7 +32,6 @@ const Cards: React.FC = () => {
         },
       })
       .then((res) => {
-        // console.log(res);
         setCategories(
           res.data.map((item: any) => {
             return {
@@ -49,30 +48,23 @@ const Cards: React.FC = () => {
         <Title />
         <CardStyle>
           {" "}
-          {categories.map((cat) => (
-            <ImgCard title={cat.title} img={cat.image} />
+          {categories.map((cat,index) => (
+            <ImgCard title={cat.title} img={cat.image} key={index}/>
           ))}{" "}
         </CardStyle>
 
-        {/* <Overlay></Overlay> */}
-        {/* <ImgCard /> <ImgCard /> <ImgCard />
-          <ImgCard /> <ImgCard /> <ImgCard />
-          <ImgCard /> <ImgCard /> <ImgCard /> */}
-
         <TitleMask />
         <CardMaskStyle>
-          {/* <Overlay></Overlay> */}
-
-          {products.length == 0 ? (
+          {products.length === 0 ? (
             <>
-              <ImgMaskCard title="" url="" />
+              <ImgMaskCard />
               <ImgMasTowkCard />
               <ImgMasTowkCard />
               <ImgMasTowkCard />
             </>
           ) : (
-            products.map((item: any) => {
-              return <ImgMaskCard title={item.title} url={item.url} />;
+            products.map((item: any,index:number) => {
+              return <ImgMaskCard title={item.title} url={item.url}  key={index}/>;
             })
           )}
         </CardMaskStyle>

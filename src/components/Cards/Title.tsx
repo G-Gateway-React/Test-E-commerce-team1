@@ -1,26 +1,21 @@
-import {TitleStyle, TitleMaskStyle } from './Style';
+import { TitleStyle, TitleMaskStyle } from "./Style";
 
-const  Title:React.FC=()=> {
-
-    return (
-        <>
-        <TitleStyle>
+const Title: React.FC = () => {
+  return (
+    <>
+      <TitleStyle>
         <span>CATEGOR</span>IES
-        </TitleStyle>
-        </>
-    )
-}
+      </TitleStyle>
+    </>
+  );
+};
 
 export default Title;
 
-export const  TitleMask:React.FC=()=> {
-
-    return (
-        <>
-         <TitleMaskStyle> 
-       NEW BOOTS ADDED RECENTLY
-      </TitleMaskStyle>
-        </>
-    )
-}
-
+export const TitleMask: React.FC = () => {
+  return (
+    <>
+      <TitleMaskStyle>NEW BOOTS ADDED RECENTLY</TitleMaskStyle>
+    </>
+  );
+};

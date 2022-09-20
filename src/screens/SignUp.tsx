@@ -1,4 +1,3 @@
-import Nav from "../components/Nav/Nav";
 import { Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { pink } from "@mui/material/colors";
@@ -115,7 +114,6 @@ export const SignUp = () => {
 
   return (
     <>
-      <Nav black NoOfItems={2} />
       <Box
         sx={{
           display: "flex",
@@ -213,7 +211,10 @@ export const SignUp = () => {
             >
               Let's get personal! We'll send you only the good stuff: Exclusive
               early access to Sale, new arrivals and promotions. No nasties.
-              <span style={{color:'red',fontSize:'0.9rem'}}><br></br>{errors.check?.message}</span>
+              <span style={{ color: "red", fontSize: "0.9rem" }}>
+                <br></br>
+                {errors.check?.message}
+              </span>
             </Typography>
             {/* <div className="invalid-feedback">{errors.check?.message}</div> */}
           </Box>

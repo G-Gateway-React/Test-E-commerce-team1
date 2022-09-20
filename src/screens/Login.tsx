@@ -1,4 +1,3 @@
-import Nav from "../components/Nav/Nav";
 import { Typography, CircularProgress } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { pink } from "@mui/material/colors";
@@ -16,7 +15,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { passwordValidation } from "../Utils/validation";
 import { useAppDispatch, useAppSelector } from "../store";
 import { loginThunk } from "../store/auth";
-import { getProducts } from "../store/product";
 import toast from "react-hot-toast";
 
 interface FormValues {
@@ -90,14 +88,12 @@ export const Login = () => {
     }
     if (loginThunk.fulfilled.match(loginResult)) {
       toast.success("Login Success, Welcome to the App!");
-      navigate('/')
+      navigate("/");
     }
-    const fetchProducts = await dispatch(getProducts());
   };
 
   return (
     <>
-      <Nav black NoOfItems={2} />
       <Box
         sx={{
           display: "flex",

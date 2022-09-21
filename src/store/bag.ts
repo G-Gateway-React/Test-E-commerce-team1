@@ -21,7 +21,4 @@ const BagItems = createSlice({
 });
 
 export const { setBagItem, ResetBagItem } = BagItems.actions;
-
-// export default categories.reducer;
-
 export default BagItems.reducer;

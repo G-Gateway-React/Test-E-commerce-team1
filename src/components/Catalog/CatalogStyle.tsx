@@ -44,6 +44,7 @@ export const CardStyle = styled.div`
   flex-wrap: wrap;
   > div {
     width: 30%;
+    height: fit-content ;
   }
 `;
 

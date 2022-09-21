@@ -5,6 +5,9 @@ export const CardStyle = styled.div`
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
+  > div{
+    width: 30%;
+  }
 `;
 
 export const TitleStyle = styled.h1`
@@ -38,6 +41,10 @@ export const CardMaskStyle = styled.h1`
   display: flex;
   justify-content: center;
   align-items: end;
+  width: 100%;
+  /* > div {
+    width: 100%;
+  } */
 `;
 
 export const JoinStyle = styled.div`

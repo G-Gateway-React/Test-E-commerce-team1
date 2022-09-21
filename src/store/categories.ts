@@ -3,7 +3,7 @@ import axios from "axios";
 import { baseUrl } from "../API/config";
 import { combineReducers } from "@reduxjs/toolkit";
 export const getCategories = createAsyncThunk(
-  "categories/getProducts",
+  "categories/getCategories",
   async (_, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {

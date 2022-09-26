@@ -4,13 +4,16 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import { ButtonSignup } from "../../screens/SignUp";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import toast from "react-hot-toast";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { setBagItem } from "../../store/bag";
 
-// -- types ----------------------------------------------------------------- //
 export interface ProductProps {
   Name?: string;
   Price?: string;
   Colors?: String[];
   Sizes?: String[];
+  Item?: any[];
 }
 
 const StyledBox = styled(Box)`
@@ -48,7 +51,16 @@ export const ProductDetails = ({
   Price,
   Colors,
   Sizes,
+  Item,
 }: ProductProps) => {
+  const dispatch = useAppDispatch();
+  const Items = useAppSelector((state) => state.BagItems.data.BagItemsArr);
+  const handleAddition = (Item: any) => {
+    if (!Items.find((e: any) => e.id === Item.id)) {
+      toast.success("item successfully added");
+      dispatch(setBagItem(Item));
+    } else toast.error("item already exists in Your Bag");
+  };
   const [activeColor, setActiveColor] = useState("#DFDED9");
   const [activeSize, setActiveSize] = useState("M");
   return (
@@ -131,9 +143,15 @@ export const ProductDetails = ({
           })}
         </StyledBox>
       </Box>
-      <ButtonSignup ProductButton>
+      <ButtonSignup
+        ProductButton
+        onClick={() => {
+          handleAddition(Item);
+        }}
+      >
         <FavoriteBorderIcon /> ADD TO BAG{" "}
       </ButtonSignup>
     </Box>
   );
 };
+// onClick={()=> toast.success("Done")}

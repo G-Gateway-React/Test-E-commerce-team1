@@ -1,4 +1,3 @@
-import Nav from "../components/Nav/Nav";
 import { Typography, CircularProgress } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { pink } from "@mui/material/colors";
@@ -88,13 +87,13 @@ export const Login = () => {
       toast.error("Incorrect email or passowrd");
     }
     if (loginThunk.fulfilled.match(loginResult)) {
-      toast.success("Login Success");
+      toast.success("Login Success, Welcome to the App!");
+      navigate("/");
     }
   };
 
   return (
     <>
-      <Nav black NoOfItems={2} />
       <Box
         sx={{
           display: "flex",
@@ -184,7 +183,7 @@ export const Login = () => {
               justifyContent: "end",
             }}
           >
-            <ButtonSignup type="submit" >Sign in</ButtonSignup>
+            <ButtonSignup type="submit">Sign in</ButtonSignup>
             <Typography
               onClick={() => navigate("/SignUp")}
               sx={{

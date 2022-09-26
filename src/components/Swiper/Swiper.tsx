@@ -13,8 +13,14 @@ import Img4 from "../../Assets/Rectangle 36.png";
 import Img5 from "../../Assets/Rectangle 38.png";
 import Img6 from "../../Assets/tops.png";
 const Images = [Img1, Img2, Img3, Img4, Img5, Img6];
-
-export default function MySwiper() {
+interface ImageProps {
+  url: string;
+}
+export default function MySwiper({ url }: ImageProps) {
+  const clone = [...Images];
+  if (clone.indexOf(url) === -1) {
+    clone.unshift(url);
+  }
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
   return (
     <>
@@ -31,13 +37,17 @@ export default function MySwiper() {
         }}
         modules={[FreeMode, Navigation, Thumbs]}
       >
-        {Images.map((item) => {
+        {clone.map((item: any) => {
           return (
             <SwiperSlide>
               <img
                 src={item}
                 alt={""}
-                style={{ width: "100%", height: "100%",backgroundSize: "cover" }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundSize: "cover",
+                }}
               ></img>
             </SwiperSlide>
           );
@@ -57,13 +67,18 @@ export default function MySwiper() {
           padding: "10px 0",
         }}
       >
-        {Images.map((item) => {
+        {clone.map((item) => {
           return (
             <SwiperSlide>
               <img
                 src={item}
                 alt={""}
-                style={{ height: "80%", width: "90%", backgroundSize: "cover", cursor: "pointer"}}
+                style={{
+                  height: "80%",
+                  width: "90%",
+                  backgroundSize: "cover",
+                  cursor: "pointer",
+                }}
               ></img>
             </SwiperSlide>
           );

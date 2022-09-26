@@ -1,8 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { TokenClass } from 'typescript';
-import { string } from 'yup';
-import { baseUrl } from '../API/config';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { baseUrl } from "../API/config";
 
 type User = {
   id: string;
@@ -46,7 +44,7 @@ export const signupThunk = createAsyncThunk<
   {
     rejectValue: { msg: string };
   }
->('auth/signup', async ({ email, password, name }, thunkApi) => {
+>("auth/signup", async ({ email, password, name }, thunkApi) => {
   try {
     const {
       data: { token, user },
@@ -76,7 +74,7 @@ export const signupThunk = createAsyncThunk<
       });
     } else {
       return thunkApi.rejectWithValue({
-        msg: 'Something went wrong',
+        msg: "Something went wrong",
       });
     }
   }
@@ -96,7 +94,7 @@ export const loginThunk = createAsyncThunk<
       msg: string;
     };
   }
->('auth/login', async ({ email, password }, thunkApi) => {
+>("auth/login", async ({ email, password }, thunkApi) => {
   try {
     const {
       data: { token, user },
@@ -116,7 +114,7 @@ export const loginThunk = createAsyncThunk<
       });
     } else {
       return thunkApi.rejectWithValue({
-        msg: 'something went wrong',
+        msg: "something went wrong",
       });
     }
   }
@@ -124,9 +122,9 @@ export const loginThunk = createAsyncThunk<
 
 const slice = createSlice({
   initialState,
-  name: 'auth',
+  name: "auth",
   reducers: {},
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder.addCase(signupThunk.pending, (state, action) => {
       state.loading = true;
     });
@@ -148,6 +146,7 @@ const slice = createSlice({
       state.user = user;
       state.token = token;
       state.loading = false;
+      localStorage.setItem("token", token);
     });
     builder.addCase(loginThunk.rejected, (state, action) => {
       state.loading = false;

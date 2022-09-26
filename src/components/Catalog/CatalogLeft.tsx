@@ -1,18 +1,17 @@
 import { Checkbox, Link, styled } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import RangeSlider from "./Slider";
 import { pink } from "@mui/material/colors";
 import {
   CatalogTitle,
-  //   CheckboxStyle,
   FilterStyle,
   FilterTitle,
   LeftStyle,
 } from "./CatalogStyle";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import axios from "axios";
-import CheckBox from "./Checkbox";
+import { useAppSelector, useAppDispatch } from "../../store";
+import { setFilteredCategories } from "../../store/categories";
 
 export const LinkCat = styled(Link)`
   text-decoration: none;
@@ -27,35 +26,58 @@ interface Catalog {
 }
 
 const CatalogLeft: React.FC = () => {
-  const [catalog, setCatalog] = React.useState<Catalog[]>([]);
-  React.useEffect(() => {
-    axios
-      .get("https://pro-commerce1.herokuapp.com/api/v1/category", {
-        headers: {
-          Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxhbXlhYTJiQGdtYWlsLmNvbSIsIm5hbWUiOiJMYW15YWEiLCJpYXQiOjE2NjIyNzEwNjV9.OquNvNhbXQlw7Hh9kFsSnrjIfQA8x1WvRc1bsGosJnU",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setCatalog(
-          res.data.map((item: any) => {
-            return {
-              ...item,
-            };
-          })
-        );
-      });
-  }, []);
+  const dispatch = useAppDispatch();
+  const FilteredCategories = useAppSelector(
+    (state) => state.categories.FilteredCategoriesReducer.FilteredCategories
+  );
+  const [Checked, setChecked] = useState<any>([]);
+
+  const handleChange = (id: string) => {
+    const currentIndex = FilteredCategories.indexOf(id);
+    const newChecked = [...Checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(id);
+    } else {
+      dispatch(setFilteredCategories(newChecked.splice(currentIndex, 1)));
+    }
+
+    setChecked(newChecked);
+    dispatch(setFilteredCategories(newChecked));
+  };
+  const categories = useAppSelector(
+    (state) => state.categories.CategoriesReducer.categories
+  );
 
   return (
     <>
       <CatalogTitle>CATEGORIES</CatalogTitle>
-      {catalog.map((cat) => (
-        <CheckBox title={cat.title} />
-      ))}
-      {/* <LeftStyle>
-        <span>
+      <LeftStyle>
+        {categories.map((category: any) => {
+          return (
+            <span>
+              <LinkCat>
+                <Checkbox
+                  {...label}
+                  sx={{
+                    "&.Mui-checked": {
+                      color: pink[600],
+                    },
+                  }}
+                  onChange={() => handleChange(category.id)}
+                  checked={
+                    FilteredCategories.indexOf(category.id) === -1
+                      ? false
+                      : true
+                  }
+                />
+                {category.title}
+              </LinkCat>
+            </span>
+          );
+        })}
+
+        {/* <span>
           <LinkCat href="/">
             <Checkbox
               {...label}
@@ -156,8 +178,8 @@ const CatalogLeft: React.FC = () => {
             <Checkbox {...label} />
             SHOP ALL
           </LinkCat>
-        </span>
-      </LeftStyle> */}
+        </span> */}
+      </LeftStyle>
 
       <FilterTitle>FILTERS</FilterTitle>
       <FilterStyle>
@@ -167,7 +189,6 @@ const CatalogLeft: React.FC = () => {
         <span>
           <RemoveIcon /> PRICE
         </span>
-        {/* <span></span> */}
         <RangeSlider />
 
         <span>

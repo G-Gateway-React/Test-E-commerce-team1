@@ -7,12 +7,12 @@ import ImagMasTowkCard from "../../Assets/m2.png";
 import styled from "@emotion/styled";
 
 export const FatherCard = styled(Card)`
-  width: 32%;
+  /* width: 32%; */
   border: none;
   box-shadow: none;
   transition: all 0.5s ease-in-out;
   position: relative;
-
+  cursor: pointer;
   span {
     position: absolute;
     top: 80%;
@@ -88,13 +88,20 @@ const ImgCard: React.FC<ImgCardProps> = ({ img, title }) => {
   );
 };
 
-export default ImgCard;
+type IProps = {
+  title?: string;
+  url?: string;
+};
 
-export const ImgMaskCard: React.FC = () => {
+export const ImgMaskCard = ({ title, url }: IProps) => {
   return (
     <FatherCard>
-      <CardMedia component="img" image={ImageMaskCard} alt="img" />
-      <text>MORE INFO</text>
+      <CardMedia
+        component="img"
+        image={(url && url) || ImageMaskCard}
+        alt="img"
+      />
+      <text>{(title && title) || "MORE INFO"}</text>
     </FatherCard>
   );
 };
@@ -106,3 +113,5 @@ export const ImgMasTowkCard: React.FC = () => {
     </FatherCard>
   );
 };
+
+export default ImgCard;

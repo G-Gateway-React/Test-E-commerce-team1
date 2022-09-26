@@ -1,11 +1,19 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { configureStore } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import authReducer from './auth';
+import authReducer from "./auth";
+import productReducer from "./product";
+import categories from "./categories";
+import BagItems from "./bag";
+import refs from "./refs";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    productReducer,
+    categories,
+    BagItems,
+    refs,
   },
 });
 

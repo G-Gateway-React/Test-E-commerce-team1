@@ -32,11 +32,14 @@ export const DividerStyle = styled(Divider)`
 `;
 
 export const FatherCard = styled(Card)`
-  width: 80%;
+  width: 400px;
+  height: 450px;
   border: none;
   box-shadow: none;
 `;
-
+// export const CardMediaStyle = styled(CardMedia)`
+//   width: 100%;
+// `;
 export const ClearStyle = styled(ClearIcon)`
   font-size: 35px;
 `;
@@ -74,7 +77,7 @@ const Bag: React.FC = () => {
   };
   return (
     <>
-      <Container>
+      <Container maxWidth="md">
         <Line>
           <LeftStyle>
             <text>BAG</text>

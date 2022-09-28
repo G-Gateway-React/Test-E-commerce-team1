@@ -16,12 +16,14 @@ export const RightStyle = styled.div`
 export const RemoveStyle = styled.div`
   justify-content: end;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 24px;
   color: #000f08;
   margin-top: 30px;
   display: flex;
-
+span {
+  padding-top: 14px;
+}
   @media screen and (max-width: 600px) {
     font-size: 18px;
   }
@@ -72,8 +74,8 @@ export const Bg = styled.div`
   mix-blend-mode: multiply;
 `;
 export const BagItemStyle = styled.div`
-  display: flex;
-  margin-top: 4%;
+   display: flex;
+ margin-top: 4%;
 
   div {
     display: flex;
@@ -85,12 +87,12 @@ export const BagItemStyle = styled.div`
   }
 `;
 export const Astyle = styled.div`
-  margin-bottom: 8%;
+  /* margin-bottom: 8%; */
 
   strong {
     font-style: normal;
-    font-weight: 400;
-    font-size: 32px;
+    font-weight: 500;
+    font-size: 38px;
     line-height: 48px;
     letter-spacing: 0.04em;
     color: #000f08;
@@ -101,6 +103,7 @@ export const Astyle = styled.div`
     }
   }
   span {
+    padding-top: 14px;
     font-style: normal;
     font-weight: 500;
     font-size: 32px;

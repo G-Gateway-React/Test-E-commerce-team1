@@ -43,8 +43,13 @@ export const CardStyle = styled.div`
   justify-content: start;
   flex-wrap: wrap;
   > div {
-    width: 30%;
-    height: fit-content ;
+    /* width: 30%;
+    height: fit-content ; */
+    display: grid;
+  grid-template-columns: fit-content(300px) fit-content(300px) 1fr;
+  box-sizing: border-box;
+  height: 180px;
+  width: 32%;
   }
 `;
 

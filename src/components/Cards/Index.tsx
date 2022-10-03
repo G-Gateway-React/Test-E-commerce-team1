@@ -23,10 +23,13 @@ const img =
 
 const Cards: React.FC = () => {
   const dispatch = useAppDispatch();
-//   const Ref1 = useRef<any>(null);
-//   const Ref2 = useRef<any>(null);
-// const handleScroll = () => Ref2.current?.scrollIntoView({behavior: 'smooth'});
-//   dispatch(setRefs(handleScroll()));
+  const Ref1 = useRef<any>();
+  const Ref2 = useRef<any>();
+  // console.log("sdfsdsdfsdafsdfsdafsdfsdafsdfsdafsdfsdafsdfsdafaf");
+  // const Ref3 = [Ref1, Ref2];
+  // console.log(Ref3);
+  // dispatch(setRefs([...Ref3]));
+  const handleScroll = () => Ref1.current?.scrollIntoView({behavior: 'smooth'});
   const FilteredCategories = useAppSelector(
     (state) => state.categories.FilteredCategoriesReducer.FilteredCategories
   );
@@ -57,7 +60,7 @@ const Cards: React.FC = () => {
   return (
     <>
       <Container>
-        {/* <div onClick={()=>handleScroll()}>sdafsadf</div> */}
+        <div onClick={()=>handleScroll()}>sdafsadf</div>
         <Title />
         <CardStyle>
           {categories.map((cat, index) => (
@@ -74,10 +77,10 @@ const Cards: React.FC = () => {
             </div>
           ))}{" "}
         </CardStyle>
-        <TitleMask />
-        {/* <div ref={Ref2}>
+        {/* <TitleMask /> */}
+        <div ref={Ref1}>
           <TitleMask />
-        </div> */}
+        </div>
         <CardMaskStyle>
           {products.length === 0 ? (
             <>

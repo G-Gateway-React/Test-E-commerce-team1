@@ -60,7 +60,7 @@ const Nav = () => {
     >
       <AppBar position="static" color="transparent" elevation={0}>
         <Toolbar sx={{ fontSize: "0.5rem", marginTop: "15px" }}>
-          <StyledTypography onClick={() => navigate("/Catalog")}>
+          <StyledTypography onClick={()=>{}}>
             NEW ARRIVALS
           </StyledTypography>
 

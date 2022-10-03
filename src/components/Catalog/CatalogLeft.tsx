@@ -20,6 +20,11 @@ export const LinkCat = styled(Link)`
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
+interface Catalog {
+  id: string;
+  title: string;
+}
+
 const CatalogLeft: React.FC = () => {
   const dispatch = useAppDispatch();
   const FilteredCategories = useAppSelector(

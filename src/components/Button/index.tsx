@@ -18,6 +18,7 @@ export const StyledButton = styled(Button)`
   font-size: 16px;
 
   background: ${(p: BagButton) => (p.BagButton ? BagBg : HomeBg)};
+
   border: 1px solid #fff;
   border-radius: 4px;
 
